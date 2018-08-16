@@ -13,19 +13,19 @@ import android.widget.TextView;
 import com.mirzayogy.psbskatel.DetectConnection;
 import com.mirzayogy.psbskatel.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SplashScreen extends AppCompatActivity {
 
-    @Bind(R.id.internetNotAvailable)
+    @BindView(R.id.internetNotAvailable)
     LinearLayout internetNotAvailable;
-    @Bind(R.id.splashImage)
+    @BindView(R.id.splashImage)
     ImageView splashImage;
     SharedPreferences sharedPreference, sharedPreferencesCache;
     SharedPreferences.Editor editor;
-    @Bind(R.id.errorMessage)
+    @BindView(R.id.errorMessage)
     TextView errorMessage;
 
     @Override
