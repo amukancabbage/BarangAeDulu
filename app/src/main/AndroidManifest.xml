@@ -9,14 +9,15 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-        tools:replace="android:icon"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/appicon"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon">
+        <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Activity.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,7 +26,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.Welcome" />
-        <activity android:name=".Activity.Signup"></activity>
+        <activity android:name=".Activity.Signup" />
+        <activity android:name=".Activity.AccountVerification" />
+        <activity android:name=".Activity.ForgotPassword"></activity>
     </application>
 
 </manifest>

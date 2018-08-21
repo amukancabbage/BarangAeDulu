@@ -1,7 +1,6 @@
-package com.mirzayogy.psbskatel;
+package com.mirzayogy.psbskatel.Activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +12,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.mirzayogy.psbskatel.Activity.Signup;
+import com.mirzayogy.psbskatel.Common;
+import com.mirzayogy.psbskatel.Config;
+import com.mirzayogy.psbskatel.MVP.SignUpResponse;
+import com.mirzayogy.psbskatel.R;
+import com.mirzayogy.psbskatel.Retrofit.Api;
 
 import java.util.List;
 
@@ -23,6 +26,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class MainActivity extends AppCompatActivity {
     @BindViews({R.id.email, R.id.password})
@@ -58,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 Config.moveTo(MainActivity.this, Signup.class);
                 break;
             case R.id.txtForgotPassword:
-                //Config.moveTo(MainActivity.this, ForgotPassword.class);
+                Config.moveTo(MainActivity.this, ForgotPassword.class);
                 break;
             case R.id.skipLoginLayout:
 //                Intent intent = new Intent(Login.this, MainActivity.class);
@@ -95,31 +101,31 @@ public class MainActivity extends AppCompatActivity {
         pDialog.setCancelable(false);
         pDialog.show();
         // sending gcm token to server
-//        Api.getClient().login(editTexts.get(0).getText().toString().trim(),
-//                editTexts.get(1).getText().toString().trim(),
-//                "email",
-//                new Callback<SignUpResponse>() {
-//                    @Override
-//                    public void success(SignUpResponse signUpResponse, Response response) {
-//                        pDialog.dismiss();
-//                        Log.d("signUpResponse", signUpResponse.getUserid() + "");
-//                        Toast.makeText(Login.this, signUpResponse.getMessage(), Toast.LENGTH_SHORT).show();
-//                        if (signUpResponse.getSuccess().equalsIgnoreCase("true")) {
-//                            Common.saveUserData(Login.this, "email", editTexts.get(1).getText().toString());
-//                            Common.saveUserData(Login.this, "userId", signUpResponse.getUserid() + "");
-//                            Config.moveTo(Login.this, MainActivity.class);
-//                            finishAffinity();
-//                        } else if (signUpResponse.getSuccess().equalsIgnoreCase("notactive")) {
-//                            Config.moveTo(Login.this, AccountVerification.class);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void failure(RetrofitError error) {
-//                        pDialog.dismiss();
-//
-//                        Log.e("error", error.toString());
-//                    }
-//                });
+        Api.getClient().login(editTexts.get(0).getText().toString().trim(),
+                editTexts.get(1).getText().toString().trim(),
+                "email",
+                new Callback<SignUpResponse>() {
+                    @Override
+                    public void success(SignUpResponse signUpResponse, Response response) {
+                        pDialog.dismiss();
+                        Log.d("signUpResponse", signUpResponse.getUserid() + "");
+                        Toast.makeText(MainActivity.this, signUpResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                        if (signUpResponse.getSuccess().equalsIgnoreCase("true")) {
+                            Common.saveUserData(MainActivity.this, "email", editTexts.get(1).getText().toString());
+                            Common.saveUserData(MainActivity.this, "userId", signUpResponse.getUserid() + "");
+                            Config.moveTo(MainActivity.this, MainActivity.class);
+                            finishAffinity();
+                        } else if (signUpResponse.getSuccess().equalsIgnoreCase("notactive")) {
+                            Config.moveTo(MainActivity.this, AccountVerification.class);
+                        }
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        pDialog.dismiss();
+
+                        Log.e("error", error.toString());
+                    }
+                });
     }
 }

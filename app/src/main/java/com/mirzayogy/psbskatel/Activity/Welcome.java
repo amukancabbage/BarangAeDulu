@@ -24,7 +24,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.mirzayogy.psbskatel.MainActivity;
 import com.mirzayogy.psbskatel.PrefManager;
 import com.mirzayogy.psbskatel.R;
 
